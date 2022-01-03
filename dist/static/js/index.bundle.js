@@ -1,0 +1,1 @@
+console.log("hello"),document.getElementById("app").innerHTML="<h2>hello</h2>";
