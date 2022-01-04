@@ -1,0 +1,81 @@
+<template>
+    <div class="app-body">
+        <!-- {{title}} -->
+        <!-- <Blogs/> -->
+        <!-- 通过prop 传递数据 -->
+        <Header :addTask="addTask"/>
+        <List :task="task" :deleteTask="deleteTask"/>
+        <Footer :task="task" :clearTask="clearTask" :checkAll="checkAll"/>
+    </div>
+</template>
+
+<script>
+// import Blogs from './components/Blogs'
+import Header from './components/Header'
+import List from './components/List'
+import Footer from './components/Footer'
+
+export default {
+    // data() {
+    //     return {
+    //         title: '我是title'
+    //     }
+    // },
+    // components: {
+    //     Blogs: Blogs
+    // }
+    data() {
+        return {
+            task: [
+                {
+                    id: '1',
+                    name: '1',
+                     completed: false
+                },{
+                    id: '2',
+                    name: '2',
+                     completed: false
+                }
+            ]
+        }
+    },
+    methods: {
+        addTask(data) {
+            // 添加数据(task 数组 里面是obj)
+            this.task.unshift(data)
+        },
+        deleteTask(index) {
+            this.task.splice(index,1)
+        },
+        clearTask() {
+            // filter 返回的数组不是原来的数组 将选中的completed 变为false，然后将本来是false 的变为true 并添加到新的数组去
+            this.task = this.task.filter((data,index) => !data.completed)
+        },
+        checkAll(isCheckAll) {
+            // 全选按钮 
+            this.task.forEach(task => task.completed = isCheckAll)
+        }
+    },
+    components: {
+        Header,
+        List,
+        Footer
+    }
+}
+</script>
+
+<style scoped>
+/* scoped 让css 在当前vue 组件生效 */
+    /* h2 {
+        font-size: 28px;
+        color: yellowgreen;
+    } */
+    .app-body {
+        width: 800px;
+        overflow: hidden;
+        padding-bottom: 20px;
+        margin: 20px auto 0;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+    }
+</style>

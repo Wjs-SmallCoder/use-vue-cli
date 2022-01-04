@@ -1,5 +1,6 @@
 const path = require('path') // 路径模块
 const HtmlWebpackPlugin = require('html-webpack-plugin') // html 一起打包
+const { VueLoaderPlugin } = require('vue-loader') // 处理vue 组件
 
 module.exports = {
     // 入口文件
@@ -27,7 +28,7 @@ module.exports = {
             },
             {
                 test: /\.css$/i,
-                use: ['style-loader', 'css-loader'],
+                use: ['vue-style-loader', 'css-loader'],
             },
             {
                 // file-loader 和url-loader 替换成模块asset/resource asset/inline(资源变为base64)
@@ -43,6 +44,11 @@ module.exports = {
                 generator: {
                     filename: 'images/[hash:5][ext][query]'
                 }
+            },
+            // 处理vue
+            {
+                test: /\.vue$/,
+                loader: 'vue-loader'
             }
         ]
     },
@@ -51,10 +57,18 @@ module.exports = {
         new HtmlWebpackPlugin({
             template: 'index.html', // 页面作为模板
             filename: 'index.html' // 生成页面(output 路径)
-        })
+        }),
+        new VueLoaderPlugin()
     ],
     devServer: {
         open: true, // 自动打开页面
     },
-    devtool: 'eval-cheap-module-source-map' // 生产环境能够找到出错的文件以及位置
+    devtool: 'eval-cheap-module-source-map', // 生产环境能够找到出错的文件以及位置
+    resolve: { // 模块解析
+        extensions: ['.js','.vue','.json'], // 省略后缀
+        alias: { // 别名
+            // 解决You are using the runtime-only build of Vue where the template compiler is not available. Either pre-compile the templates into render functions, or use the compiler-included build.
+            'vue$': 'vue/dist/vue.esm.js' // 表示精准匹配
+        }
+    }
 }

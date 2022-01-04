@@ -32,3 +32,15 @@
 
   ES6 export default / import
   CommonJS module.exports / exports / require 
+
+  生产环境和开发环境区分
+    生产： npm run build --- webpack 
+          1. 内存编译打包，生成文件
+          2. 保存本地 (不能直接访问，需要启动服务器)
+    开发： npm run dev --- webpack-dev-server
+          1. 内存编译打包，生成文件
+          2. 启动服务器并打开浏览器 (通过浏览器虚拟路径访问)
+
+3. vue 组件处理
+  安装
+  npm install -D vue-loader vue-template-compiler
