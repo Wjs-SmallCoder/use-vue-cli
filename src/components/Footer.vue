@@ -20,10 +20,11 @@
             },
             isCheckAll: {
                 // 是否全选
-                get() {
+                get() { // get 读取
                     // 上面选择框全选则全选触发
-                    return this.task.length === this.completeSize
+                    return this.task.length === this.completeSize && this.completeSize>0
                 },
+                // set 点击触发
                 set(value) { // value 看作boolean
                     // 点击全选触发
                     this.checkAll(value)

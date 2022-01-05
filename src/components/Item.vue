@@ -1,6 +1,6 @@
 <template>
     <li :style="{background: bgColor}" @mouseenter="handleEnter(true)" @mouseleave="handleEnter(false)">
-        <input type="checkbox" name="task" v-model="data.completed">
+        <input type="checkbox" name="task" v-model="isComplete">
         {{data.name}}
         <button v-show="isShow" @click="deleteItem">删除</button>
     </li>
@@ -11,12 +11,26 @@
         props: {
             data: Object,
             deleteTask: Function,
-            index: Number
+            index: Number,
+            updateTask: Function
         },
         data() {
             return {
                 bgColor: 'white',
                 isShow: false
+            }
+        },
+        computed: {
+            isComplete: {
+                get() {
+                    // 读取当前的completed
+                    return this.data.completed
+                },
+                set(value) {
+                    // value true false
+                    // 点击触发
+                    this.updateTask(this.data,value)
+                }
             }
         },
         methods: {

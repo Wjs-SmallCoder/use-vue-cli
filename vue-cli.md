@@ -44,3 +44,5 @@
 3. vue 组件处理
   安装
   npm install -D vue-loader vue-template-compiler
+
+4. 子组件不能直接修改父组件的数据，需要父组件定义的方法通过props 的方法传递，让子组件调用才能执行

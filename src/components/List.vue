@@ -1,6 +1,6 @@
 <template>
     <ul id="checkbox-list">
-        <Item v-for="(data,index) in task" :key="data.id" :data="data" :deleteTask="deleteTask" :index="index"/>
+        <Item v-for="(data,index) in task" :key="data.id" :data="data" :deleteTask="deleteTask" :index="index" :updateTask="updateTask"/>
     </ul>
 </template>
 
@@ -8,7 +8,7 @@
     import Item from './Item'
 
     export default {
-        props: ['task','deleteTask'],
+        props: ['task','deleteTask','updateTask'],
         components: {
             Item
         }

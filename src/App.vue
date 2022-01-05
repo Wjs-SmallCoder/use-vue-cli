@@ -4,7 +4,7 @@
         <!-- <Blogs/> -->
         <!-- 通过prop 传递数据 -->
         <Header :addTask="addTask"/>
-        <List :task="task" :deleteTask="deleteTask"/>
+        <List :task="task" :deleteTask="deleteTask" :updateTask="updateTask"/>
         <Footer :task="task" :clearTask="clearTask" :checkAll="checkAll"/>
     </div>
 </template>
@@ -14,6 +14,7 @@
 import Header from './components/Header'
 import List from './components/List'
 import Footer from './components/Footer'
+import {saveTask,readTask} from './utils/storageUtils'
 
 export default {
     // data() {
@@ -30,7 +31,7 @@ export default {
                 {
                     id: '1',
                     name: '1',
-                     completed: false
+                     completed: true
                 },{
                     id: '2',
                     name: '2',
@@ -38,6 +39,14 @@ export default {
                 }
             ]
         }
+    },
+    mounted() {
+        // 模拟延时
+        setTimeout(() => {
+            // 读取local 数据
+            // this.task = JSON.parse(localStorage.getItem('task_id') || '[]')
+            saveTask()
+        },1000)
     },
     methods: {
         addTask(data) {
@@ -54,6 +63,21 @@ export default {
         checkAll(isCheckAll) {
             // 全选按钮 
             this.task.forEach(task => task.completed = isCheckAll)
+        },
+        updateTask(task,isCheck) {
+            // 修改是否点击
+            task.completed = isCheck
+        }
+    },
+    watch: {
+        task: {
+            deep: true, // 深度监视(本身以及内部以下层级进行监视)
+            // handler (value) { // value 是最新的task
+            // // 添加到local
+            //     localStorage.setItem('task_id',value)
+            // saveTask(value)
+            // }
+            handler: saveTask
         }
     },
     components: {
