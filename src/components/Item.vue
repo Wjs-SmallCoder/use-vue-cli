@@ -10,7 +10,6 @@
     export default {
         props: {
             data: Object,
-            deleteTask: Function,
             index: Number,
             updateTask: Function
         },
@@ -45,7 +44,8 @@
             },
             deleteItem (index) {
                 if (window.confirm('确定要删除吗')) {
-                    this.deleteTask(this.index)
+                    // this.deleteTask(this.index)
+                    this.$globalEventBus.$emit('deleteTask',this.index)
                 }
             }
         }

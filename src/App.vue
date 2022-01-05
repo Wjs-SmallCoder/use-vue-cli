@@ -3,8 +3,10 @@
         <!-- {{title}} -->
         <!-- <Blogs/> -->
         <!-- 通过prop 传递数据 -->
-        <Header :addTask="addTask"/>
-        <List :task="task" :deleteTask="deleteTask" :updateTask="updateTask"/>
+        <!-- <Header :addTask="addTask"/> props 传递-->
+        <!-- <Header @addTask="addTask"/> 自定义事件监听,给当前header 对象绑定-->
+        <Header ref="header"/>
+        <List :task="task" :updateTask="updateTask"/>
         <Footer :task="task" :clearTask="clearTask" :checkAll="checkAll"/>
     </div>
 </template>
@@ -41,12 +43,16 @@ export default {
         }
     },
     mounted() {
+        this.$refs.header.$on('addTask',this.addTask)
+
+        this.$globalEventBus.$on('deleteTask',this.deleteTask)
+
         // 模拟延时
-        setTimeout(() => {
+        // setTimeout(() => {
             // 读取local 数据
             // this.task = JSON.parse(localStorage.getItem('task_id') || '[]')
-            saveTask()
-        },1000)
+            this.task = readTask()
+        // },1000);
     },
     methods: {
         addTask(data) {

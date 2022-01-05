@@ -6,12 +6,13 @@
 
 <script>
     export default {
-        props: {
-            addTask: {
-                type: Function,
-                required: true
-            }
-        },
+        // 通过自定义事件绑定 不需要通过props 传递以及获取
+        // props: {
+        //     addTask: {
+        //         type: Function,
+        //         required: true
+        //     }
+        // },
         data() {
             return {
                 name: ''
@@ -27,7 +28,9 @@
                     completed: false
                 }
 
-                this.addTask(dataObj)
+                // this.addTask(dataObj)
+                // 分发自定义事件 $emit
+                this.$emit('addTask',dataObj)
 
                 this.name = ''
             }
