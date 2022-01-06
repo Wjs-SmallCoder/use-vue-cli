@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.bootcdn.net/ajax/libs/pubsub-js/1.9.4/pubsub.js"></script>
+</head>
+<body>
+    <script>
+        // PubSub 类似于vue 的全局事件总线
+        // 1. token subscribe(msgName,callback) 订阅消息 返回token
+        // 2. publish(msgName,data) 异步 发送消息
+        // 3. publishSync(msgName,data) 同步 发送消息
+        // 4. unsubscribe(token) 根据token 取消订阅
+
+        // msg data 必须，不使用也需要传递
+        // 订阅 当使用了publish publishSync 且msg 内容一样则触发subscribe
+        PubSub.subscribe('add',(msg,data) => {
+            console.log('add1',data)
+        })
+
+        // 获取token (添加标识)
+        const token = PubSub.subscribe('add',(msg,data) => {
+            console.log('add2',data)
+        })
+
+        // token uid_1
+        console.log('token',token)
+
+        PubSub.subscribe('delete',(msg,data) => {
+            console.log('delete',data)
+        })
+
+        // unsubscribe 通过token 删除
+        PubSub.unsubscribe(token)
+
+        // 异步 msg data
+        PubSub.publish('add','hello')
+
+        // 同步 msg data
+        PubSub.publishSync('delete','byebye')
+
+    </script>
+</body>
+</html>
