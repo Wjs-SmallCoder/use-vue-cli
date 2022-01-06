@@ -1,11 +1,11 @@
 // es5 模块
-(function(w) {
+(function(window) {
     // 定义PubSub 对象
     const PubSub = {}
     // 用来保存所有待处理的回调
     // eg 'add': {uid: function} 每个类型多个对应uid 以及回调
-    const callbackContainer = {}
-    const id = '1'
+    let callbackContainer = {}
+    let id = 0 // id
 
     PubSub.subscribe = function(msg,callback) {
         // 将类型(msgName)，uid 和callback 添加进callbackContainer
@@ -14,7 +14,7 @@
             callbacks = {};
             callbackContainer[msg] = callbacks;
         }
-        const token = 'uid_' + id++;
+        const token = 'uid_' + ++id;
         callbacks[token] = callback;
 
         // 便于外部通过token 取消
@@ -46,6 +46,22 @@
         }
     }
 
+    // 通过flag 删除
+    PubSub.unsubscribe = function(flag) {
+        if (flag === undefined) {
+            // 没有传递flag 清空
+            callbackContainer = {}
+        } else if (typeof(flag) === 'string' && flag.indexOf('uid_') === 0) {
+            // 有flag 且是token (uid_) 
+            Object.values(callbackContainer).forEach(callbacks => {
+                delete callbacks[flag]
+            })
+        } else {
+            // 传递的是flag msg
+            delete callbackContainer[flag]
+        }
+    }
+
     // 暴露模块
-    w.PubSub = PubSub
+    window.PubSub = PubSub
 })(window)

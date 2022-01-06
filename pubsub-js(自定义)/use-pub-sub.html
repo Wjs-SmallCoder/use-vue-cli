@@ -9,7 +9,25 @@
 </head>
 <body>
     <script>
-        
+        PubSub.subscribe('add',(msg,data) => {
+            console.log('add1')
+        })
+
+        const token = PubSub.subscribe('add',(msg,data) => {
+            console.log('add2')
+        })
+
+        PubSub.publish('add','hello')
+
+        // PubSub.publishSync('add','hello')
+
+        // const token = PubSub.subscribe('add',(msg,data) => {
+            // console.log('add2')
+        // })
+
+        // PubSub.unsubscribe()
+        // PubSub.unsubscribe(token)
+        // PubSub.unsubscribe('add')
     </script>
 </body>
 </html>

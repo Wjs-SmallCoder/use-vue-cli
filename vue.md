@@ -64,8 +64,13 @@
   3. 全局事件总线
     绑定事件监听和分发事件的组件对象必须是同一个组件对象
 
-    通过Vue 的原型添加一个全局事件总线(global event bus) 其他组件能够通过this.xxx 来使用 eg index.js App.vue
+    通过Vue 的原型添加一个全局事件总线(global event bus) 其他组件能够通过this.xxx 来使用 eg index.js App.vue item.vue
       // 创建一个全局用于绑定事件监听和分发事件监听的对象 Global Event Bus 全局事件总线(事件总线对象就是一个vm)
       // 将其挂载到Vue 的原型上，所有组件对象都能访问 
       // 所有组件对象的原型对象都是一个vm(组件对象->vm)
       // Vue.prototype.$globalEventBus = new Vue() // this
+
+      this.全局事件总线.$on('name',callback) 监听这个name 并执行回调
+      this.全局事件总线.$emit('name',callback || 值)
+
+  4. slot 插槽
