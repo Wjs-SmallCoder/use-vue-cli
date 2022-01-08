@@ -72,5 +72,10 @@
 
       this.全局事件总线.$on('name',callback) 监听这个name 并执行回调
       this.全局事件总线.$emit('name',callback || 值)
+      this.全局事件总线.$off('name') 解除使劲啊监听
 
   4. slot 插槽
+      通过slot 标签以及name 属性(父组件)
+      需要传递的组件添加slot 属性以及父组件对应name 的值(子组件)
+    
+  5. vuex
