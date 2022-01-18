@@ -79,3 +79,13 @@
       需要传递的组件添加slot 属性以及父组件对应name 的值(子组件)
     
   5. vuex
+
+6. vue-router
+  npm vue-router 
+  需要在index.js 使用 import vueRouter from 'vue-router'   Vue.use(vueRouter)
+
+  可以查看vue-router 官网
+
+    router-view 渲染router 页面
+    router-link router 链接
+    keep-alive 保存组件缓存，切换组件时不被销毁
