@@ -79,6 +79,14 @@
       需要传递的组件添加slot 属性以及父组件对应name 的值(子组件)
     
   5. vuex
+    npm i vuex
+
+    创建一个store.js 文件
+    看vuex 的store.js
+
+    全局$store对象
+    // store 对象
+    // 1. state 2. getters 3. dispatch(actionName,data) 调用action 4. commit(mutationName,data) 调用mutation 
 
 6. vue-router
   npm vue-router 
